@@ -12,10 +12,6 @@ db.init_app(app)
 app.app_context().push()
 db.create_all()
 
-@application.route('/upload')
-def upload_html():
-	return render_template('upload.html')
-
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('director', type=str, required=False, help='Director of the movie')
