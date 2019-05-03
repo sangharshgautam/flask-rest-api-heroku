@@ -1,14 +1,8 @@
 from flask import Flask, request, send_from_directory, render_template, send_file
 from flask_restful import Resource, reqparse, Api
-from flask_cors import CORS, cross_origin
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__)
 api = Api(app)
-cors = CORS(application, resources={r"/uploader": {"origins": "*"}})
-app.config['UPLOAD_FOLDER'] = 'static'
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///base.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
@@ -21,7 +15,7 @@ db.create_all()
 @app.route('/upload')
 def upload_html():
 	return render_template('upload.html')
-		
+
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('director', type=str, required=False, help='Director of the movie')
@@ -69,4 +63,4 @@ api.add_resource(Movies_List, '/<string:movie>')
 
 if __name__=='__main__':
     
-    app.run(debug=True)
+app.run(debug=True)
