@@ -21,13 +21,6 @@ db.create_all()
 @app.route('/upload')
 def upload_html():
 	return render_template('upload.html')
-
-@app.route('/uploader', methods = ['GET', 'POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
-def upload_file():
-    if request.method == 'POST':
-	return {'Movies': list(map(lambda x: x.json(), Movies.query.all()))}
-		
 		
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
