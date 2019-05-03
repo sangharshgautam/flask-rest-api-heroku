@@ -12,6 +12,10 @@ db.init_app(app)
 app.app_context().push()
 db.create_all()
 
+@app.route('/upload')
+def upload_html():
+	return render_template('upload.html')
+
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('director', type=str, required=False, help='Director of the movie')
@@ -54,12 +58,6 @@ class All_Movies(Resource):
     def get(self):
         return {'Movies': list(map(lambda x: x.json(), Movies.query.all()))}
 
-class OpenCV(Resource):
-    default_mimetype = 'text/html'
-    def get(self):
-        return render_template('upload.html'), 200,  {'Content-Type': 'text/html'}
-    
-api.add_resource(OpenCV, '/')
 api.add_resource(All_Movies, '/movies')
 api.add_resource(Movies_List, '/<string:movie>')
 
