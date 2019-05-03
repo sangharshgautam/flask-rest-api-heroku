@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, send_from_directory, render_template, send_file
 from flask_restful import Resource, reqparse, Api
 
 app = Flask(__name__)
@@ -11,6 +11,10 @@ from base import Movies, db
 db.init_app(app)
 app.app_context().push()
 db.create_all()
+
+@application.route('/upload')
+def upload_html():
+	return render_template('upload.html')
 
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
