@@ -53,8 +53,13 @@ class Movies_List(Resource):
 class All_Movies(Resource):
     def get(self):
         return {'Movies': list(map(lambda x: x.json(), Movies.query.all()))}
+
+class OpenCV(Resource):
+    def get(self):
+        return render_template('upload.html')
     
-api.add_resource(All_Movies, '/')
+api.add_resource(OpenCV, '/')
+api.add_resource(All_Movies, '/movies')
 api.add_resource(Movies_List, '/<string:movie>')
 
 if __name__=='__main__':
