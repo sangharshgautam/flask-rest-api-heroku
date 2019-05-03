@@ -55,6 +55,7 @@ class All_Movies(Resource):
         return {'Movies': list(map(lambda x: x.json(), Movies.query.all()))}
 
 class OpenCV(Resource):
+    default_mimetype = 'text/html'
     def get(self):
         return render_template('upload.html'), 200,  {'Content-Type': 'text/html'}
     
