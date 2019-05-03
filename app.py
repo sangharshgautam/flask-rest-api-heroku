@@ -56,7 +56,7 @@ class All_Movies(Resource):
 
 class OpenCV(Resource):
     def get(self):
-        return render_template('upload.html')
+        return render_template('upload.html'), 200,  {'Content-Type': 'text/html'}
     
 api.add_resource(OpenCV, '/')
 api.add_resource(All_Movies, '/movies')
