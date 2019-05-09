@@ -12,6 +12,7 @@ db.init_app(app)
 app.app_context().push()
 db.create_all()
 
+
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('director', type=str, required=False, help='Director of the movie')
@@ -50,13 +51,15 @@ class Movies_List(Resource):
             return {'Message': '{} has been deleted from records'.format(movie)}
         return {'Message': '{} is already not on the list'.format()}
 
+
 class All_Movies(Resource):
     def get(self):
         return {'Movies': list(map(lambda x: x.json(), Movies.query.all()))}
 
-api.add_resource(All_Movies, '/')
+
+api.add_resource(All_Movies, '/movies')
 api.add_resource(Movies_List, '/<string:movie>')
 
-if __name__=='__main__':
+if __name__ == '__main__':
 
     app.run(debug=True)
