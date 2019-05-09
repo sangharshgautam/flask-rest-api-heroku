@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Resource, reqparse, Api
 
 app = Flask(__name__)
@@ -12,6 +12,10 @@ db.init_app(app)
 app.app_context().push()
 db.create_all()
 
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 class Movies_List(Resource):
     parser = reqparse.RequestParser()
